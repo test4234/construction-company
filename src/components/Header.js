@@ -64,7 +64,7 @@ export default function Header() {
           {/* LOGO */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <div className="relative h-20 w-52 md:h-24 md:w-64">
+              <div className="relative h-20 w-25 md:h-24 md:w-25">
                 <Image
                   src={siteConfig.logo}
                   alt={siteConfig.companyName}

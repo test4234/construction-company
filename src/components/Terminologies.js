@@ -42,8 +42,9 @@ export default function Testimonials() {
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase leading-tight">
-              Built on <span className="text-[#003399]">Trust.</span> Proven by <span className="text-[#FF6600]">Results.</span>
-            </h2>
+  Built on <span className="text-[#003399]">Trust</span><br />
+  Proven by <span className="text-[#FF6600]">Results</span>
+</h2>
             <p className="mt-6 text-slate-600 text-base leading-relaxed">
               Our projects are more than structures — they are long-term investments 
               built with precision, compliance, and performance in mind. 

@@ -7,18 +7,20 @@ export default function AboutUsSection() {
 
         {/* ================= HEADER ================= */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-            <span className="text-[#FF6600]">About</span>{" "}
-            <span className="text-[#003399]">
-              SaiGanesh Constructions
-            </span>
-          </h1>
+                   <h1 className="text-4xl md:text-5xl leading-tight mb-6">
+  <span className="text-[#FF6600] font-[var(--font-playfair)] font-bold italic">
+    About
+  </span>{" "}
+  <span className="text-[#003399] font-semibold">
+    Sai Ganesh Constructions
+  </span>
+</h1>
 
           <div className="h-1 w-24 bg-[#FF6600] mx-auto mb-8" />
 
           <p className="text-lg text-slate-700 leading-relaxed">
             Established with a vision to revolutionize petrol pump construction,
-            <strong> Saiganesh Constructions</strong> has grown into a trusted name
+            <strong> Sai ganesh Constructions</strong> has grown into a trusted name
             in the industry. With over <strong>15 years of experience</strong>, we
             specialize in designing and building state-of-the-art fuel stations
             that meet international standards.

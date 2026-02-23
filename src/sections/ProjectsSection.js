@@ -7,7 +7,7 @@ export default function ProjectsSection({ limit = 3 }) {
 
   return (
     <section className="py-10 bg-muted/30">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
 
         {/* ================= HEADER ================= */}
         <div className="max-w-3xl mx-auto text-center mb-16">

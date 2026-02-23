@@ -9,8 +9,8 @@ export default function TrustStats({
       sub: "Across Pan India",
     },
     {
-      value: "20+",
-      label: "Happy Clients",
+      value: "250+",
+      label: "Completed Maintenances",
       icon: <Users className="w-5 h-5" />,
       sub: "Tier 1 Retailers",
     },

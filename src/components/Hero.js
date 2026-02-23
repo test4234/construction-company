@@ -48,13 +48,13 @@ export default function Hero() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.1] text-white tracking-tight">
-            Building the{" "}
-            <span style={{ color: "var(--color-primary)" }}>
-              Future
-            </span>{" "}
-            of Energy Infrastructure
-          </h1>
+         <h1 className="text-4xl md:text-6xl font-semibold leading-[1.1] text-white tracking-tight">
+  Building the{" "}
+  <span style={{ color: "var(--color-primary)" }}>
+    Future
+  </span>{" "}
+  of Fuel Infrastructure
+</h1>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed">

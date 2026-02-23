@@ -47,9 +47,13 @@ Details: ${message || "Not Provided"}
       {/* ================= HERO ================= */}
       <section className="pt-28 pb-20 text-center bg-slate-50 border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            <span className="text-[#FF6600]">Contact</span>{" "}
-            <span className="text-[#003399]">SaiGanesh Constructions</span>
+          <h1 className="text-4xl md:text-5xl leading-tight mb-6">
+            <span className="text-[#FF6600] font-[var(--font-playfair)] font-bold">
+              Contact
+            </span>{" "}
+            <span className="text-[#003399] font-semibold">
+              Sai Ganesh Constructions
+            </span>
           </h1>
 
           <p className="text-lg text-slate-600 leading-relaxed">
