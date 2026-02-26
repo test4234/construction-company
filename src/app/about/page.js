@@ -12,14 +12,14 @@ import {
 } from "lucide-react";
 
 export async function generateMetadata() {
-  const meta = buildMeta({
-    title: "About Saiganesh Constructions | Ganesh Golla",
+  return {
+    title: "About Us – Company Profile & Leadership",
     description:
-      "Learn about Sai Ganesh Constructions and its proprietor Ganesh Golla, a trusted petrol pump construction expert with 15+ years of experience and 20+ completed projects.",
-    path: "/about",
-  });
-
-  return { title: meta.title, description: meta.description };
+      "Learn about Sai Ganesh Constructions and its proprietor Ganesh Golla, a trusted petrol pump construction expert with 15+ years of experience and 20+ successfully completed projects across India.",
+    alternates: {
+      canonical: "/about",
+    },
+  };
 }
 
 export default function About() {

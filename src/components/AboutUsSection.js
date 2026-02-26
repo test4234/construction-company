@@ -20,7 +20,7 @@ export default function AboutUsSection() {
 
           <p className="text-lg text-slate-700 leading-relaxed">
             Established with a vision to revolutionize petrol pump construction,
-            <strong> Sai ganesh Constructions</strong> has grown into a trusted name
+            <strong> Sai Ganesh Constructions</strong> has grown into a trusted name
             in the industry. With over <strong>15 years of experience</strong>, we
             specialize in designing and building state-of-the-art fuel stations
             that meet international standards.

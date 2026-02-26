@@ -5,10 +5,10 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100vh] lg:min-h-screen flex items-center overflow-hidden">
+    <section className="relative w-full overflow-hidden">
 
       {/* ===== BACKGROUND IMAGE ===== */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 -z-10">
         <Image
           src="https://ik.imagekit.io/oj4o1nw9x/India%20oil.jpg"
           alt="Modern Petrol Station"
@@ -17,7 +17,6 @@ export default function Hero() {
           className="object-cover"
         />
 
-        {/* Dark Industrial Overlay */}
         <div
           className="absolute inset-0"
           style={{
@@ -28,33 +27,37 @@ export default function Hero() {
       </div>
 
       {/* ===== CONTENT ===== */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
-        <div className="max-w-2xl space-y-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+
+        {/* Controlled spacing instead of vh */}
+        <div className="max-w-2xl py-28 md:py-36 lg:py-44 space-y-6">
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full border"
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1 rounded-full border"
             style={{
               backgroundColor: "rgba(255,106,0,0.08)",
               borderColor: "rgba(255,106,0,0.2)",
-              color: "var(--color-primary)"
+              color: "var(--color-primary)",
             }}
           >
-            <span className="h-2 w-2 rounded-full animate-pulse"
+            <span
+              className="h-2 w-2 rounded-full animate-pulse"
               style={{ backgroundColor: "var(--color-primary)" }}
             ></span>
             <span className="text-xs font-bold uppercase tracking-widest">
-              Leading Petrol Pump Constrution Specialists
+              Leading Petrol Pump Construction Specialists
             </span>
           </div>
 
-          {/* Main Heading */}
-         <h1 className="text-4xl md:text-6xl font-semibold leading-[1.1] text-white tracking-tight">
-  Building the{" "}
-  <span style={{ color: "var(--color-primary)" }}>
-    Future
-  </span>{" "}
-  of Fuel Infrastructure
-</h1>
+          {/* Heading */}
+          <h1 className="text-4xl md:text-6xl font-semibold leading-[1.1] text-white tracking-tight">
+            Building the{" "}
+            <span style={{ color: "var(--color-primary)" }}>
+              Future
+            </span>{" "}
+            of Fuel Infrastructure
+          </h1>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
@@ -63,7 +66,7 @@ export default function Hero() {
             generation of fueling hubs.
           </p>
 
-          {/* CTA Buttons */}
+          {/* Buttons */}
           <div className="flex flex-wrap gap-4 pt-4">
             <Link
               href="/services"
@@ -83,16 +86,15 @@ export default function Hero() {
                 backgroundColor: "rgba(255,255,255,0.08)",
                 borderColor: "rgba(255,255,255,0.3)",
                 color: "#ffffff",
-                backdropFilter: "blur(6px)"
+                backdropFilter: "blur(6px)",
               }}
             >
               View Projects
             </Link>
           </div>
+
         </div>
       </div>
-
-
     </section>
   );
 }

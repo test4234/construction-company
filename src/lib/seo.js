@@ -12,15 +12,13 @@ export function buildMeta({
   path = "/",
   image,
 }) {
-  const fullTitle = title
-    ? `${title} | ${siteConfig.companyName}`
-    : siteConfig.seo.defaultTitle;
+const fullTitle = title || siteConfig.seo.defaultTitle;
 
   const url = new URL(path, siteConfig.siteUrl).toString();
 
-  const ogImage = image
-    ? new URL(image, siteConfig.siteUrl).toString()
-    : siteConfig.seo.ogImage;
+const ogImage = image
+  ? new URL(image, siteConfig.siteUrl).toString()
+  : new URL(siteConfig.seo.ogImage, siteConfig.siteUrl).toString();
 
   return {
     title: fullTitle,

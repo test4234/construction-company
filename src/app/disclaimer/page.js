@@ -1,11 +1,20 @@
 ﻿import siteConfig from "../../data/siteConfig";
 import { AlertTriangle, Scale, FileText, Info } from "lucide-react";
 
-export const metadata = {
-  title: `Disclaimer | ${siteConfig.companyName}`,
-  description:
-    "Disclaimer outlining limitations related to project information, services, and website content.",
-};
+export async function generateMetadata() {
+  return {
+    title: "Disclaimer – Legal Information",
+    description:
+      "Read the official disclaimer of Sai Ganesh Constructions regarding project information, services, cost estimates, regulatory compliance, and website content usage.",
+    alternates: {
+      canonical: `${siteConfig.siteUrl}/disclaimer`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default function Disclaimer() {
   const sections = [

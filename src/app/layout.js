@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
 import siteConfig from "../data/siteConfig";
-import { Poppins } from "next/font/google";
+import { Poppins, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 
 /* -----------------------------------------
@@ -58,7 +58,23 @@ export const metadata = {
 
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
+
+  alternates: {
+    canonical: siteConfig.siteUrl,
+  },
+
+  referrer: "origin-when-cross-origin",
+
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+
+  themeColor: "#ffffff",
 };
 
 /* -----------------------------------------
@@ -75,7 +91,14 @@ export const viewport = {
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-playfair",
 });
 
 /* -----------------------------------------
@@ -84,7 +107,9 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-secondary antialiased`}>
+      <body
+        className={`${poppins.variable} ${playfair.variable} font-[var(--font-poppins)] bg-secondary antialiased`}
+      >
         {/* Accessibility Skip Link */}
         <a
           href="#main-content"
@@ -97,7 +122,10 @@ export default function RootLayout({ children }) {
         <Header />
 
         {/* Main Content */}
-        <main id="main-content" className="relative min-h-screen bg-secondary">
+        <main
+          id="main-content"
+          className="relative min-h-screen bg-secondary"
+        >
           {children}
         </main>
 
@@ -107,11 +135,11 @@ export default function RootLayout({ children }) {
         {/* WhatsApp Floating Button */}
         <WhatsAppButton />
 
-        {/* ✅ Organization Schema for Construction Company */}
+        {/* ✅ Organization Schema (SEO Optimized) */}
         <Script
           id="organization-schema"
           type="application/ld+json"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -120,15 +148,19 @@ export default function RootLayout({ children }) {
               url: siteConfig.siteUrl,
               logo: `${siteConfig.siteUrl}${siteConfig.logo}`,
               telephone: siteConfig.phone,
+              email: siteConfig.email,
               address: {
                 "@type": "PostalAddress",
                 streetAddress: siteConfig.address,
                 addressLocality: siteConfig.defaultCity,
-                addressRegion: siteConfig.state || "Karnataka",
+                addressRegion: siteConfig.state,
                 addressCountry: "IN",
               },
-              areaServed: "India",
-              sameAs: siteConfig.socials || [],
+              areaServed: {
+                "@type": "Country",
+                name: "India",
+              },
+              sameAs: siteConfig.socials,
             }),
           }}
         />

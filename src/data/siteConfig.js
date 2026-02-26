@@ -2,19 +2,23 @@ const siteConfig = {
   /* -----------------------------------------
      BASIC COMPANY INFO
   ------------------------------------------ */
-  companyName: "SaiGanesh Constructions",
+  companyName: "Sai Ganesh Constructions",
   tagline: "Building the Future of Fuel Infrastructure",
+
   description:
-    "Saiganesh Constructions is a leading petrol pump construction specialist with over 25 years of experience. We deliver world-class fuel stations that combine safety, efficiency, sustainability, and modern design across India.",
+    "Sai Ganesh Constructions is a leading petrol pump construction company in India with over 25 years of experience. We specialize in turnkey fuel station development, underground tank installation, canopy construction, and complete petroleum infrastructure solutions built with safety, precision, and regulatory compliance.",
 
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://saiganeshconstructions.in",
+    "http://localhost:3000",
 
   defaultCity: "Bangalore",
+  state: "Karnataka",
+  country: "India",
 
   address:
-    "2 Stage, 34, Vijayanagara Badavane,Doddamandiganahalli, Kandalli, Hassan, Karnataka – 573217",
+    "2 Stage, 34, Vijayanagara Badavane, Doddamandiganahalli, Kandalli, Hassan, Karnataka – 573217",
+
   mapLink: "",
   mapEmbed: "",
 
@@ -22,19 +26,17 @@ const siteConfig = {
   whatsapp: "919983533999",
   email: "saiganeshconstructionss@gmail.com",
 
-  
-
   logo: "/logo.png",
 
   /* -----------------------------------------
      COMPANY PROFILE
   ------------------------------------------ */
-  hospitalProfile: {
+  companyProfile: {
     category: "Petrol Pump Construction Company",
     workingHours: "Monday - Saturday: 9:00 AM - 6:00 PM",
     areaServed: "Pan India – Highway & City Infrastructure Projects",
     commitment:
-      "Saiganesh Constructions is committed to delivering precision-engineered fuel infrastructure with uncompromising safety standards, regulatory compliance, and superior construction quality.",
+      "Sai Ganesh Constructions is committed to delivering precision-engineered fuel infrastructure with uncompromising safety standards, regulatory compliance, and superior construction quality.",
   },
 
   /* -----------------------------------------
@@ -55,9 +57,9 @@ const siteConfig = {
      TRUST METRICS
   ------------------------------------------ */
   stats: {
-    projectsCompleted: "150+",
-    happyClients: "100+",
-    experience: "25+ Years",
+    projectsCompleted: "20+",
+    happyClients: "20+",
+    experience: "15+ Years",
   },
 
   /* -----------------------------------------
@@ -68,24 +70,28 @@ const siteConfig = {
   },
 
   /* -----------------------------------------
-     SOCIAL LINKS
+     SOCIAL LINKS (IMPORTANT FOR SEO TRUST)
   ------------------------------------------ */
-  socialLink: "",
+  socials: [
+  ],
 
   /* -----------------------------------------
      SEO SETTINGS
   ------------------------------------------ */
   seo: {
     defaultTitle:
-      "Saiganesh Constructions | Leading Petrol Pump Construction Company in India",
+      "Sai Ganesh Constructions | Leading Petrol Pump Construction Company in India",
+
     ogTitle:
-      "Saiganesh Constructions – Experts in Petrol Pump & Fuel Station Infrastructure",
+      "Sai Ganesh Constructions – Experts in Petrol Pump & Fuel Station Infrastructure",
+
     ogDescription:
-      "Saiganesh Constructions specializes in turnkey petrol pump construction, underground tank installation, canopy construction, and complete fuel station infrastructure development with over 25 years of experience.",
+      "Leading petrol pump construction specialists in India. We provide turnkey fuel station development, underground storage tank installation, canopy construction, and complete petroleum infrastructure services with 25+ years of expertise.",
+
     ogImage: "/og-image.jpg",
 
     keywords: [
-      "Saiganesh Constructions",
+      "Sai Ganesh Constructions",
       "petrol pump construction company",
       "fuel station construction India",
       "underground storage tank installation",

@@ -186,7 +186,6 @@ function SelectField({ icon, value, onChange }) {
         <option>Petrol Pump Construction</option>
         <option>Infrastructure Development</option>
         <option>Maintenance & Upgrades</option>
-        <option>Consultation & Planning</option>
       </select>
     </div>
   );

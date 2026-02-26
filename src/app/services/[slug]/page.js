@@ -1,9 +1,10 @@
 // src/app/services/[slug]/page.js
 
 import services from "../../../data/services";
-import { buildMeta } from "../../../lib/seo";
+import { buildMeta, serviceSchema } from "../../../lib/seo";
 import siteConfig from "../../../data/siteConfig";
 import Link from "next/link";
+import Script from "next/script";
 import { CheckCircle, Phone } from "lucide-react";
 
 /* -----------------------------------------
@@ -14,31 +15,27 @@ export async function generateStaticParams() {
 }
 
 /* -----------------------------------------
-   METADATA
+   METADATA (Next 15 Compatible)
 ------------------------------------------ */
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { slug } = await params; // ✅ Required in Next 15
 
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
 
-  const meta = buildMeta({
+  return buildMeta({
     title: service.seo?.title || service.title,
     description: service.seo?.description || service.short,
     path: `/services/${service.slug}`,
   });
-
-  return {
-    title: meta.title,
-    description: meta.description,
-  };
 }
 
 /* -----------------------------------------
-   PAGE
+   PAGE (Next 15 Compatible)
 ------------------------------------------ */
 export default async function ServicePage({ params }) {
-  const { slug } = await params;
+  const { slug } = await params; // ✅ Required in Next 15
+
   const service = services.find((s) => s.slug === slug);
 
   if (!service) {
@@ -59,7 +56,7 @@ export default async function ServicePage({ params }) {
             Petrol Pump Infrastructure Service
           </span>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mt-4 leading-tight">
+          <h1 className="text-4xl md:text-5xl text-white font-extrabold mt-4 leading-tight">
             {service.title}
           </h1>
 
@@ -88,7 +85,6 @@ export default async function ServicePage({ params }) {
               {service.content}
             </p>
 
-            {/* FEATURES */}
             {service.highlights?.length > 0 && (
               <>
                 <h2 className="text-3xl font-bold text-[#003399] mb-6">
@@ -169,6 +165,16 @@ export default async function ServicePage({ params }) {
           </Link>
         </div>
       </section>
+
+      {/* ================= SERVICE SCHEMA ================= */}
+      <Script
+        id="service-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema(service)),
+        }}
+      />
 
     </div>
   );

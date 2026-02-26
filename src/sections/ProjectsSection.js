@@ -1,13 +1,28 @@
-import projects from "@/data/projects";
+import { supabase } from "@/lib/supabase";
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 
-export default function ProjectsSection({ limit = 3 }) {
-  const featuredProjects = projects.slice(0, limit);
+/* =====================================================
+   🔥 Revalidate every 60 seconds (ISR)
+===================================================== */
+export const revalidate = 60;
+
+export default async function ProjectsSection({ limit = 3 }) {
+
+  const { data: projects, error } = await supabase
+    .from("projects")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Failed to fetch projects:", error);
+    return null; // silently fail in homepage section
+  }
 
   return (
     <section className="py-10 bg-muted/30">
-      <div className="container mx-auto">
+      <div className="container mx-auto p-5">
 
         {/* ================= HEADER ================= */}
         <div className="max-w-3xl mx-auto text-center mb-16">
@@ -25,11 +40,17 @@ export default function ProjectsSection({ limit = 3 }) {
         </div>
 
         {/* ================= PROJECT GRID ================= */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
+        {projects?.length === 0 ? (
+          <div className="text-center py-10 text-muted-foreground">
+            No projects available yet.
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        )}
 
         {/* ================= CTA ================= */}
         <div className="text-center mt-10">

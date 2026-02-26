@@ -7,25 +7,29 @@ import LeadSection from "../components/AppointmentForm";
 import Terminologies from "../components/Terminologies";
 import TrustStats from "@/components/TrustStats";
 import ProjectsSection from "../sections/ProjectsSection";
-import AboutUsSection from "../components/AboutUsSection"
+import AboutUsSection from "../components/AboutUsSection";
 
 import siteConfig from "../data/siteConfig";
 import Script from "next/script";
 
 /* -----------------------------------------
-   PAGE METADATA (SEO + WHATSAPP SAFE)
+   PAGE METADATA (HOMEPAGE – FINAL SEO VERSION)
 ------------------------------------------ */
 export async function generateMetadata() {
+  const fullTitle =
+    "Petrol Pump Construction Company in India – 15+ Years Experience | Sai Ganesh Constructions";
+
   return {
-    title: siteConfig.seo.defaultTitle,
+    title: fullTitle,
     description: siteConfig.description,
 
     openGraph: {
-      title: siteConfig.seo.ogTitle,
+      title: fullTitle,
       description: siteConfig.seo.ogDescription,
       url: siteConfig.siteUrl,
       siteName: siteConfig.companyName,
       type: "website",
+      locale: "en_IN",
       images: [
         {
           url: siteConfig.seo.ogImage,
@@ -34,6 +38,13 @@ export async function generateMetadata() {
           alt: siteConfig.companyName,
         },
       ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: siteConfig.seo.ogDescription,
+      images: [siteConfig.seo.ogImage],
     },
 
     alternates: {
@@ -48,59 +59,67 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <>
-      {/* Hero */}
       <Hero />
-
-        {/* Trust Stats */}
-        <TrustStats />
-        {/* About Us */}
-        <AboutUsSection />
-      {/* Services */}
+      <TrustStats />
+      <AboutUsSection />
       <ServicesSection />
-{/* Projects */}
-<ProjectsSection />
-
-      {/* Gallery */}
+      <ProjectsSection />
       <GallerySlider />
-
-      {/* Terminologies */}
-<Terminologies />
-
-      {/* Lead / CTA */}
+      <Terminologies />
       <LeadSection />
 
       {/* ================================
-          STRUCTURED DATA (SEO BOOST)
+          STRUCTURED DATA (ENHANCED)
       ================================= */}
       <Script
         id="home-schema"
         type="application/ld+json"
-        strategy="afterInteractive"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@graph": [
               {
                 "@type": "WebPage",
-                name: siteConfig.companyName,
+                "@id": siteConfig.siteUrl,
                 url: siteConfig.siteUrl,
+                name:
+                  "Petrol Pump Construction Company in India – 25+ Years Experience",
                 description: siteConfig.description,
+                inLanguage: "en-IN",
               },
               {
                 "@type": "ConstructionCompany",
+                "@id": `${siteConfig.siteUrl}#organization`,
                 name: siteConfig.companyName,
                 url: siteConfig.siteUrl,
+                logo: `${siteConfig.siteUrl}${siteConfig.logo}`,
                 telephone: siteConfig.phone,
-                areaServed: "India",
+                email: siteConfig.email,
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: siteConfig.address,
+                  addressLocality: siteConfig.defaultCity,
+                  addressRegion: siteConfig.state,
+                  addressCountry: "IN",
+                },
+                areaServed: {
+                  "@type": "Country",
+                  name: "India",
+                },
               },
               {
                 "@type": "Service",
                 name: "Petrol Pump Construction",
+                description:
+                  "Turnkey petrol pump and fuel station construction including underground storage tank installation, canopy construction, electrical systems, and regulatory compliance.",
                 provider: {
-                  "@type": "ConstructionCompany",
-                  name: siteConfig.companyName,
+                  "@id": `${siteConfig.siteUrl}#organization`,
                 },
-                areaServed: "India",
+                areaServed: {
+                  "@type": "Country",
+                  name: "India",
+                },
               },
             ],
           }),

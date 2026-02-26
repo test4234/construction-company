@@ -1,26 +1,29 @@
 ﻿import siteConfig from "../../data/siteConfig";
+import { buildMeta } from "../../lib/seo";
 import Link from "next/link";
+import Script from "next/script";
 import {
   FileText,
   Shield,
   AlertCircle,
   ClipboardCheck,
   Scale,
-  Mail,
-  Phone,
   ChevronRight,
   Building,
   Gavel,
   CheckCircle2,
 } from "lucide-react";
 
-export const metadata = {
-  title: `Terms & Conditions | ${siteConfig.companyName}`,
-  description: `Legal terms governing the use of the ${siteConfig.companyName} website and engagement of petrol pump construction and infrastructure services.`,
-  alternates: {
-    canonical: `${siteConfig.siteUrl}/terms`,
-  },
-};
+/* =====================================================
+   🔥 SEO METADATA (Optimized)
+===================================================== */
+export async function generateMetadata() {
+  return buildMeta({
+    title: "Terms & Conditions",
+    description: `Legal terms governing the use of the ${siteConfig.companyName} website and engagement of petrol pump construction and infrastructure services across India.`,
+    path: "/terms",
+  });
+}
 
 export default function Terms() {
   const sections = [
@@ -33,42 +36,63 @@ export default function Terms() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* ================= HERO: CONTRACTUAL HEADER ================= */}
-      <header className="bg-slate-50 pt-20 pb-16 border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+    <>
+      {/* ================= STRUCTURED DATA ================= */}
+      <Script
+        id="terms-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Terms and Conditions",
+            url: `${siteConfig.siteUrl}/terms`,
+            publisher: {
+              "@type": "Organization",
+              name: siteConfig.companyName,
+              url: siteConfig.siteUrl,
+            },
+          }),
+        }}
+      />
+
+      <div className="min-h-screen bg-white">
+
+        {/* ================= HERO ================= */}
+        <header className="bg-slate-50 pt-20 pb-16 border-b border-slate-200">
+          <div className="max-w-6xl mx-auto px-6">
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 text-[var(--color-primary)] font-bold text-sm uppercase tracking-widest mb-4">
                 <Scale className="w-5 h-5" /> Regulatory Framework
               </div>
+
               <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-none">
                 Terms of <span className="text-slate-400">Service.</span>
               </h1>
+
               <p className="mt-6 text-lg text-slate-500 leading-relaxed">
-                This document defines the professional relationship between <strong>{siteConfig.companyName}</strong> and our clients/visitors. By using this platform, you acknowledge and agree to these standards.
+                These terms define the professional relationship between{" "}
+                <strong>{siteConfig.companyName}</strong> and our clients.
+                By using this platform, you acknowledge and agree to these standards.
+              </p>
+
+              <p className="mt-4 text-sm text-slate-400">
+                Proprietor: <strong>Mr. Ganesh Golla</strong>
               </p>
             </div>
-            <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm hidden md:block">
-               <p className="text-[10px] font-black uppercase text-slate-400 mb-2">Effective Date</p>
-               <p className="text-sm font-bold text-slate-900">January 01, 2026</p>
-               <div className="mt-4 flex items-center gap-2 text-green-600 text-xs font-bold uppercase">
-                  <CheckCircle2 className="w-4 h-4" /> Active Compliance
-               </div>
-            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* ================= MAIN CONTENT ================= */}
-      <main className="max-w-6xl mx-auto px-6 py-16">
-        <div className="flex flex-col lg:flex-row gap-16">
-          
-          {/* LEFT: PROGRESS NAVIGATION */}
-          <aside className="lg:w-1/3">
-            <div className="sticky top-28">
-              <div className="bg-slate-900 rounded-3xl p-8 text-white">
+        {/* ================= MAIN CONTENT ================= */}
+        <main className="max-w-6xl mx-auto px-6 py-16">
+          <div className="flex flex-col lg:flex-row gap-16">
+
+            {/* LEFT NAV */}
+            <aside className="lg:w-1/3">
+              <div className="sticky top-28 bg-slate-900 rounded-3xl p-8 text-white">
                 <h3 className="text-xl font-bold mb-6">Article Index</h3>
+
                 <nav className="space-y-1">
                   {sections.map((s) => (
                     <a
@@ -82,79 +106,68 @@ export default function Terms() {
                     </a>
                   ))}
                 </nav>
-                
-                <div className="mt-8 pt-8 border-t border-white/10">
-                   <p className="text-xs text-slate-500 mb-4">Need a physical copy? Contact us at:</p>
-                   <Link href={`mailto:${siteConfig.email}`} className="text-sm font-bold text-slate-200 hover:text-[var(--color-primary)] block transition">
-                      {siteConfig.email}
-                   </Link>
-                </div>
               </div>
-            </div>
-          </aside>
+            </aside>
 
-          {/* RIGHT: LEGAL ARTICLES */}
-          <div className="lg:w-2/3">
-            <div className="space-y-12">
-              
+            {/* RIGHT CONTENT */}
+            <div className="lg:w-2/3 space-y-12">
+
               <div className="p-6 bg-orange-50 rounded-2xl border-l-4 border-[var(--color-primary)] flex gap-4">
                 <AlertCircle className="w-6 h-6 text-[var(--color-primary)] shrink-0" />
                 <p className="text-sm text-orange-900 leading-relaxed font-medium">
-                  <strong>Binding Agreement:</strong> Please note that these terms apply to all digital interactions and preliminary enquiries. Specific project-related terms will be governed by signed physical contracts.
+                  <strong>Binding Agreement:</strong> These terms apply to all
+                  digital interactions and preliminary enquiries. Project-specific
+                  terms are governed by signed contracts.
                 </p>
               </div>
 
               {sections.map((section, idx) => (
-                <section key={section.id} id={section.id} className="scroll-mt-32 group">
+                <section key={section.id} id={section.id} className="scroll-mt-32">
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="text-4xl font-black text-slate-100 group-hover:text-[var(--color-primary)] transition-colors duration-500">
+                    <span className="text-4xl font-black text-slate-100">
                       0{idx + 1}
                     </span>
-                    <h2 className="text-2xl font-bold text-slate-900 uppercase tracking-tight m-0">
+                    <h2 className="text-2xl font-bold text-slate-900 uppercase tracking-tight">
                       {section.title}
                     </h2>
                   </div>
-                  
-                  <div className="pl-12 border-l border-slate-100 ml-4 md:ml-6">
-                    <div className="prose prose-slate max-w-none text-slate-600">
-                      {section.id === "website-use" && (
-                        <p>This website serves as a technical portfolio and enquiry portal. Content is for informational purposes and does not establish a consultant-client relationship until a formal engagement is signed.</p>
-                      )}
-                      {section.id === "enquiries" && (
-                        <p>All quote requests submitted through our portal are subject to feasibility studies. {siteConfig.companyName} reserves the right to decline project enquiries based on site location, regulatory restrictions, or technical limitations.</p>
-                      )}
-                      {section.id === "scope" && (
-                        <p>Our turnkey services include civil works, underground storage tank (UST) installation, canopy construction, and electrical cabling. Modification to scope post-agreement may result in price adjustments.</p>
-                      )}
-                      {section.id === "estimates" && (
-                        <p>Indicative timelines for petrol pump completion (typically 6-12 months) are subject to external factors including OMCs (Oil Marketing Companies) approvals, PESO licensing, and weather conditions.</p>
-                      )}
-                      {section.id === "liability" && (
-                        <p>{siteConfig.companyName} is not responsible for losses resulting from delays in government approvals or inaccuracies in documentation provided by the client.</p>
-                      )}
-                      {section.id === "governing-law" && (
-                        <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                          <p className="mb-0">These terms are governed by the <strong>Laws of India</strong>. Disputes are subject to the exclusive jurisdiction of the courts in Karnataka, India.</p>
-                        </div>
-                      )}
-                    </div>
+
+                  <div className="pl-12 border-l border-slate-100">
+                    <p className="text-slate-600 leading-relaxed">
+                      {section.id === "website-use" &&
+                        "This website serves as a technical portfolio and enquiry portal. Content does not establish a consultant-client relationship until formal engagement."}
+
+                      {section.id === "enquiries" &&
+                        `${siteConfig.companyName} reserves the right to decline project enquiries based on feasibility, regulatory conditions, or technical limitations.`}
+
+                      {section.id === "scope" &&
+                        "Turnkey services include civil works, UST installation, canopy construction, and electrical systems. Scope modifications may affect pricing."}
+
+                      {section.id === "estimates" &&
+                        "Indicative timelines (6–12 months) depend on OMC approvals, PESO licensing, and external regulatory factors."}
+
+                      {section.id === "liability" &&
+                        `${siteConfig.companyName} is not liable for delays caused by government approvals or client documentation inaccuracies.`}
+
+                      {section.id === "governing-law" &&
+                        "These terms are governed by the Laws of India. Jurisdiction lies with courts in Karnataka, India."}
+                    </p>
                   </div>
                 </section>
               ))}
 
-              <footer className="pt-12 mt-12 border-t border-slate-100">
-                <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
-                   <p className="text-xs font-mono text-slate-400">REF: SC-TERMS-2026-EN</p>
-                   <div className="flex gap-4">
-                      <Link href="/privacy" className="text-xs font-bold text-slate-400 hover:text-[var(--color-primary)]">Privacy Policy</Link>
-                      <Link href="/disclaimer" className="text-xs font-bold text-slate-400 hover:text-[var(--color-primary)]">Disclaimer</Link>
-                   </div>
+              <footer className="pt-12 mt-12 border-t border-slate-100 flex justify-between text-xs text-slate-400">
+                <span>REF: SC-TERMS-2026-EN</span>
+                <div className="flex gap-4">
+                  <Link href="/privacy">Privacy Policy</Link>
+                  <Link href="/disclaimer">Disclaimer</Link>
                 </div>
               </footer>
+
             </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }

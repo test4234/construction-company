@@ -4,104 +4,130 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import galleryImages from "../data/galleryImages";
+import { supabase } from "@/lib/supabase";
 
 export default function GallerySlider() {
+  const [images, setImages] = useState([]);
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const nextSlide = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % galleryImages.length);
+  /* ==============================
+     Fetch Gallery Images
+  ============================== */
+  useEffect(() => {
+    async function fetchGalleryImages() {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("gallery");
+
+      if (error) {
+        console.error("Failed to fetch gallery:", error);
+        return;
+      }
+
+      let allImages = [];
+
+      data?.forEach((project) => {
+        if (!project.gallery) return;
+
+        try {
+          const galleryArray = Array.isArray(project.gallery)
+            ? project.gallery
+            : JSON.parse(project.gallery);
+
+          if (Array.isArray(galleryArray)) {
+            allImages.push(...galleryArray);
+          }
+        } catch (err) {
+          console.error("Invalid gallery JSON:", err);
+        }
+      });
+
+      setImages(allImages);
+    }
+
+    fetchGalleryImages();
   }, []);
+
+  const nextSlide = useCallback(() => {
+    setCurrent((prev) =>
+      images.length ? (prev + 1) % images.length : 0
+    );
+  }, [images.length]);
 
   const prevSlide = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
-  }, []);
+    setCurrent((prev) =>
+      images.length ? (prev - 1 + images.length) % images.length : 0
+    );
+  }, [images.length]);
 
   useEffect(() => {
-    if (isHovered) return;
-    const timer = setInterval(nextSlide, 6000);
+    if (isHovered || images.length === 0) return;
+    const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-  }, [nextSlide, isHovered]);
+  }, [nextSlide, isHovered, images.length]);
+
+  if (images.length === 0) return null;
 
   return (
-    <section className="py-12 md:py-20 bg-white">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-10">
+    <section className="py-10 md:py-24 bg-white">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-10">
 
-        {/* SECTION TITLE */}
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-5xl font-black text-[#003399] uppercase mb-4">
+        {/* TITLE */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-6xl font-black text-[#003399] uppercase mb-4">
             Our Work Gallery
           </h2>
-          <p className="text-slate-500 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-            Explore a showcase of our completed fuel station and infrastructure
-            projects, built with precision, quality, and long-term durability.
+          <p className="text-slate-500 max-w-3xl mx-auto text-base md:text-lg">
+            Explore our completed infrastructure and fuel station projects.
           </p>
         </div>
 
         {/* SLIDER */}
         <div
-          className="relative"
+          className="relative w-full h-[60vh] md:h-[75vh] rounded-3xl overflow-hidden shadow-2xl"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="relative aspect-video md:aspect-[21/9] w-full rounded-xl md:rounded-[2rem] overflow-hidden bg-slate-100 shadow-xl border border-slate-100">
-            
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={galleryImages[current].src}
-                  alt="Gallery Image"
-                  fill
-                  priority
-                  className="object-cover"
-                />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Desktop Arrows */}
-            <div className="hidden md:flex absolute inset-y-0 left-0 items-center">
-              <button
-                onClick={prevSlide}
-                className="ml-4 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 backdrop-blur border border-slate-200 hover:border-[#003399] transition-all"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="hidden md:flex absolute inset-y-0 right-0 items-center">
-              <button
-                onClick={nextSlide}
-                className="mr-4 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 backdrop-blur border border-slate-200 hover:border-[#003399] transition-all"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Mobile Tap Zones */}
-            <div className="absolute inset-y-0 left-0 w-16 md:hidden" onClick={prevSlide} />
-            <div className="absolute inset-y-0 right-0 w-16 md:hidden" onClick={nextSlide} />
-
-            {/* Progress Bar */}
-            <div className="absolute bottom-0 left-0 w-full h-1.5 bg-black/10">
-              <motion.div
-                key={current}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 6, ease: "linear" }}
-                className="h-full bg-[#FF6600]"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[current]}
+                alt={`Project ${current + 1}`}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={current === 0}
               />
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </AnimatePresence>
 
+          {/* LEFT ARROW */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 backdrop-blur hover:bg-white transition"
+          >
+            <ChevronLeft className="w-6 h-6 text-[#003399]" />
+          </button>
+
+          {/* RIGHT ARROW */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 backdrop-blur hover:bg-white transition"
+          >
+            <ChevronRight className="w-6 h-6 text-[#003399]" />
+          </button>
+
+          {/* Overlay Gradient (Professional Look) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+        </div>
       </div>
     </section>
   );

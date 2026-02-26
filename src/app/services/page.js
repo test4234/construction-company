@@ -7,18 +7,15 @@ import siteConfig from "../../data/siteConfig";
 import Link from "next/link";
 import { Building2, Briefcase } from "lucide-react";
 
+/* =====================================================
+   SEO METADATA (FIXED + COMPLETE)
+===================================================== */
 export async function generateMetadata() {
-  const meta = buildMeta({
+  return buildMeta({
     title: "Petrol Pump Construction Services",
-    description: `Explore turnkey petrol pump construction, infrastructure development, maintenance, and consultation services by ${siteConfig.companyName}.`,
+    description: `Explore turnkey petrol pump construction, underground tank installation, canopy development, and complete fuel station infrastructure services by ${siteConfig.companyName}.`,
     path: "/services",
   });
-
-  return {
-    title: meta.title,
-    description: meta.description,
-    alternates: { canonical: meta.canonical },
-  };
 }
 
 export default function ServicesPage() {
@@ -39,18 +36,22 @@ export default function ServicesPage() {
             </span>
           </div>
 
-          {/* Title */}
+          {/* SEO-Optimized H1 */}
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-            <span className="text-[#003399]">Our</span>{" "}
-            <span className="text-[#FF6600]">Construction Services</span>
+            <span className="text-[#003399]">
+              Petrol Pump Construction
+            </span>{" "}
+            <span className="text-[#FF6600]">
+              Services
+            </span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {siteConfig.companyName} provides complete petrol pump construction
             and fuel station infrastructure solutions including site development,
-            underground tank installation, canopy construction, electrical works,
-            and regulatory compliance management.
+            underground storage tank installation, canopy construction, electrical
+            works, fire safety systems, and regulatory compliance management.
           </p>
 
         </div>
@@ -59,7 +60,7 @@ export default function ServicesPage() {
       {/* =====================================================
            SERVICES GRID
       ===================================================== */}
-      <section className="py-10">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -79,7 +80,7 @@ export default function ServicesPage() {
       {/* =====================================================
            CTA SECTION
       ===================================================== */}
-      <section className="py-10 bg-slate-50 border-t border-slate-100">
+      <section className="py-16 bg-slate-50 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
 
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 mb-6">
@@ -94,8 +95,8 @@ export default function ServicesPage() {
           </h2>
 
           <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
-            Get expert consultation, project estimation, and complete turnkey
-            construction services tailored to your requirements.
+            Get expert consultation, detailed project estimation, and complete
+            turnkey construction services tailored to your site requirements.
           </p>
 
           <Link
