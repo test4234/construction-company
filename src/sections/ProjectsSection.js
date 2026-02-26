@@ -22,7 +22,7 @@ export default async function ProjectsSection({ limit = 3 }) {
 
   return (
     <section className="py-10 bg-muted/30">
-      <div className="container mx-10 p-5">
+      <div className="container p-5">
 
         {/* ================= HEADER ================= */}
         <div className="max-w-3xl mx-auto text-center mb-16">
