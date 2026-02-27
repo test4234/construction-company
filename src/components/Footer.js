@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import siteConfig from "../data/siteConfig";
-import { MapPin, Phone, Mail, ShieldCheck } from "lucide-react";
+import { MapPin, Phone, Mail, ShieldCheck, User } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -35,34 +35,50 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
-            <h4 className="text-sm font-bold text-[#FF6600] mb-6 uppercase tracking-wider">
-              Contact
-            </h4>
+<div>
+  <h4 className="text-sm font-bold text-[#FF6600] mb-6 uppercase tracking-wider">
+    Contact
+  </h4>
 
-            <div className="space-y-4 text-sm text-slate-300">
+  <div className="space-y-4 text-sm text-slate-300">
 
-              <div className="flex gap-3 items-start">
-                <MapPin className="w-4 h-4 text-[#FF6600] mt-1" />
-                <span>{siteConfig.address}</span>
-              </div>
+    {/* Proprietor */}
+    <div className="flex gap-3 items-start">
+      <User className="w-4 h-4 text-[#FF6600] mt-1" />
+      <div>
+         <p className="text-xs text-slate-400 uppercase tracking-wide">
+          Proprietor
+        </p>
+        <p className="font-semibold text-white">
+          Mr. Ganesh Golla
+        </p>
+      </div>
+    </div>
 
-              <div className="flex gap-3 items-center">
-                <Phone className="w-4 h-4 text-[#FF6600]" />
-                <a href={`tel:${siteConfig.phone}`} className="hover:text-white">
-                  {siteConfig.phone}
-                </a>
-              </div>
+    {/* Address */}
+    <div className="flex gap-3 items-start">
+      <MapPin className="text-[#FF6600] mt-1" />
+      <span>{siteConfig.address}</span>
+    </div>
 
-              <div className="flex gap-3 items-center">
-                <Mail className="w-4 h-4 text-[#FF6600]" />
-                <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
-                  {siteConfig.email}
-                </a>
-              </div>
+    {/* Phone */}
+    <div className="flex gap-3 items-center">
+      <Phone className="w-4 h-4 text-[#FF6600]" />
+      <a href={`tel:${siteConfig.phone}`} className="hover:text-white">
+        {siteConfig.phone}
+      </a>
+    </div>
 
-            </div>
-          </div>
+    {/* Email */}
+    <div className="flex gap-3 items-center">
+      <Mail className="w-4 h-4 text-[#FF6600]" />
+      <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
+        {siteConfig.email}
+      </a>
+    </div>
+
+  </div>
+</div>
 
           {/* Quick Links */}
           <div>

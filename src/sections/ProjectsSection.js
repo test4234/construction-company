@@ -1,24 +1,33 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 
-/* =====================================================
-   🔥 Revalidate every 60 seconds (ISR)
-===================================================== */
-export const revalidate = 60;
+export default function ProjectsSection({ limit = 3 }) {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default async function ProjectsSection({ limit = 3 }) {
+  useEffect(() => {
+    async function fetchProjects() {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(limit);
 
-  const { data: projects, error } = await supabase
-    .from("projects")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(limit);
+      if (error) {
+        console.error("Failed to fetch projects:", error);
+      } else {
+        setProjects(data);
+      }
 
-  if (error) {
-    console.error("Failed to fetch projects:", error);
-    return null; // silently fail in homepage section
-  }
+      setLoading(false);
+    }
+
+    fetchProjects();
+  }, [limit]);
 
   return (
     <section className="py-10 bg-muted/30">
@@ -40,7 +49,11 @@ export default async function ProjectsSection({ limit = 3 }) {
         </div>
 
         {/* ================= PROJECT GRID ================= */}
-        {projects?.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-10 text-muted-foreground">
+            Loading projects...
+          </div>
+        ) : projects?.length === 0 ? (
           <div className="text-center py-10 text-muted-foreground">
             No projects available yet.
           </div>
